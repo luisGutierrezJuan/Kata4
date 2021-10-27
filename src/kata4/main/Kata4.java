@@ -1,20 +1,37 @@
 package kata4.main;
 
+import java.util.ArrayList;
 import java.util.List;
-import kata4.model.Histogram;
-import kata4.model.Mail;
-import kata4.view.HistogramDisplay;
-import kata4.view.MailHistogramBuilder;
-import kata4.view.MailListReader;
+import kata4.model.*;
+import kata4.view.*;
 
 public class Kata4 {
-
+    MailListReader mailListReader;
+    List<Mail> listaEmails;
+    MailHistogramBuilder mailHistogramBuilder;
+    Histogram <String> histogram;
+    
     public static void main(String[] args) {
-        String fileName = "email.txt";
-        MailListReader mailListReader = new MailListReader();
-        List<Mail> listaEmails = mailListReader.read(fileName);
-        MailHistogramBuilder mailHistogramBuilder = new MailHistogramBuilder();
-        Histogram <String> histogram = mailHistogramBuilder.build(listaEmails);
+        Kata4 ejecucion = new Kata4();
+        ejecucion.execute();
+    }
+    public void execute(){
+        input();
+        process();
+        output();
+    }
+    
+    protected void input(){
+        mailListReader = new MailListReader();
+        listaEmails = mailListReader.read("email.txt");
+        mailHistogramBuilder = new MailHistogramBuilder();
+    }
+    
+    protected void process(){
+        histogram = mailHistogramBuilder.build(listaEmails);
+    }
+    
+    protected void output(){
         new HistogramDisplay(histogram).execute();
     }
     
